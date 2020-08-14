@@ -1,0 +1,1 @@
+drop table TICKET_ISSUE__U32174 if exists cascade ;

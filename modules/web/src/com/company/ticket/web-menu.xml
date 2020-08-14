@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
+    <menu id="application-ticket" insertBefore="administration">
+        <menu id="workDocuments" icon="ANGLE_RIGHT">
+            <item screen="ticket_Incident.browse"/>
+            <item screen="ticket_Issue.browse"/>
+            <item screen="ticket_TicketIssue.browse"/>
+            <item screen="ticket_TicketWithdrawal.browse"/>
+        </menu>
+        <menu id="referenceBook" icon="ANGLE_RIGHT">
+            <item screen="ticket_LineTicketRegister.browse"/>
+            <item screen="ticket_LineAcitivity.browse"/>
+            <item screen="ticket_Pattern.browse"/>
+            <item screen="ticket_ActivityPattern.browse"/>
+            <item screen="ticket_Person.browse"/>
+            <item screen="ticket_Activity.browse"/>
+            <item screen="ticket_Ticket.browse"/>
+            <item screen="ticket_IncidentView.browse"/>
+            <item screen="ticket_IncidentReason.browse"/>
+            <item screen="ticket_IncidentOutcome.browse"/>
+            <item screen="ticket_WorkPlace.browse"/>
+            <item screen="ticket_DamageDegree.browse"/>
+            <item screen="ticket_LawArticle.browse"/>
+        </menu>
+    </menu>
+</menu-config>

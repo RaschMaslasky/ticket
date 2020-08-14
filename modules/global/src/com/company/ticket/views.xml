@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+
+    <view entity="ticket_LineTicket" name="lineTicket-with-ticket" extends="_local">
+        <property name="ticket" view="ticket-view"/>
+    </view>
+    <view entity="ticket_LinePerson" name="linePerson-with-ticket" extends="_local">
+        <property name="person" view="person-view"/>
+        <property name="tickets" view="lineTicket-with-ticket"/>
+    </view>
+    <view entity="ticket_Issue" name="issue-with-person-ticket" extends="_local">
+        <property name="persons" view="linePerson-with-ticket"/>
+        <property name="relativeDocs" view="_local"/>
+        <property name="issuePattern" view="pattern-with-shapes"/>
+    </view>
+    <view entity="ticket_Ticket" name="ticket-view" extends="_local"/>
+    <view entity="ticket_LineShape" name="lineShape-view" extends="_local"/>
+    <view entity="ticket_Pattern" name="pattern-with-shapes" extends="_local">
+        <property name="shapes" view="lineShape-view"/>
+    </view>
+    <view entity="ticket_LineTicketRegister"
+          name="lineTicketRegister-with-person-ticket-issue-incident-titleDocument-activity" extends="_local">
+        <property name="person" view="person-view"/>
+        <property name="pattern" view="pattern-with-shapes"/>
+        <property name="ticket" view="ticket-view"/>
+        <property name="issue" view="issue-with-person-ticket"/>
+        <property name="incident" view="_local"/>
+        <property name="titleDocument" view="_local"/>
+        <property name="activity" view="_local"/>
+    </view>
+    <view entity="ticket_TicketIssue" name="ticketIssue-with-person" extends="_local">
+        <property name="persons" view="linePerson-with-ticket"/>
+        <property name="relativeDoc" view="_local"/>
+    </view>
+    <view entity="ticket_TicketWithdrawal" name="ticketWithdrawal-with-person" extends="_local">
+        <property name="persons" view="linePerson-with-ticket"/>
+        <property name="relativeDoc" view="_local"/>
+    </view>
+    <view entity="ticket_Activity" name="activity-view" extends="_local"/>
+    <view entity="ticket_LineAcitivity" name="lineAcitivity-with-activity" extends="_local">
+        <property name="activity" view="activity-view"/>
+        <property name="responsible" view="person-view"/>
+        <property name="reporter" view="person-view"/>
+    </view>
+    <view entity="ticket_ActivityPattern" name="activityPattern-with-activities" extends="_local">
+        <property name="activities" view="lineShapeActivity-with-activities"/>
+    </view>
+    <view entity="ticket_LineShapeActivity" name="lineShapeActivity-with-activities" extends="_local">
+        <property name="activity" view="activity-view"/>
+    </view>
+    <view entity="ticket_LineCommissionPerson" name="lineCommissionPerson-with-person" extends="_local">
+        <property name="person" view="person-view"/>
+    </view>
+    <view entity="ticket_DamageDegree" name="damageDegree-view" extends="_local"/>
+    <view entity="ticket_LineStruckedPerson" name="lineStruckedPerson-with-person" extends="_local">
+        <property name="person" view="person-view"/>
+        <property name="damageDegree" view="damageDegree-view"/>
+        <property name="workPlace" view="_local"/>
+    </view>
+    <view entity="ticket_Person" name="person-view" extends="_local"/>
+    <view entity="ticket_LineViolatorPerson" name="lineViolatorPerson-with-person" extends="_local">
+        <property name="person" view="person-view"/>
+        <property name="workPlace" view="_local"/>
+        <property name="activity" view="activity-view"/>
+        <property name="lawArticle" view="_local"/>
+    </view>
+    <view entity="ticket_LineInvolvedPerson" name="lineInvolvedPerson-with-person" extends="_local">
+        <property name="person" view="person-view"/>
+    </view>
+    <view entity="ticket_LineCommonActivity" name="lineCommonActivity-with-activity" extends="_local">
+        <property name="activity" view="activity-view"/>
+        <property name="reporter" view="person-view"/>
+        <property name="responsible" view="person-view"/>
+    </view>
+    <view entity="ticket_Incident" name="incident-with-activities" extends="_local" systemProperties="true">
+        <property name="activities" view="lineAcitivity-with-activity"/>
+        <property name="activitiesCommon" view="lineCommonActivity-with-activity"/>
+        <property name="docs" view="lineDocs-view"/>
+        <property name="struckedPersons" view="lineStruckedPerson-with-person"/>
+        <property name="commissionPersons" view="lineCommissionPerson-with-person"/>
+        <property name="involvedPersons" view="lineInvolvedPerson-with-person"/>
+        <property name="violaterPersons" view="lineViolatorPerson-with-person"/>
+        <property name="activityPattern" view="activityPattern-with-activities">
+            <property name="activities" view="lineShapeActivity-with-activities">
+                <property name="activityPattern" view="activityPattern-with-activities"/>
+            </property>
+        </property>
+        <property name="workPlace" view="_local"/>
+        <property name="initiator" view="person-view"/>
+        <property name="view" view="_local"/>
+        <property name="outcome" view="_local"/>
+        <property name="reason" view="_local"/>
+    </view>
+    <view entity="ticket_LineDocs" name="lineDocs-view" extends="_local"/>
+    <view entity="ticket_LawArticle" name="lawArticle-view" extends="_local"/>
+</views>

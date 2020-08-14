@@ -1,0 +1,3 @@
+alter table TICKET_INCIDENT alter column COMMON_INFO_ID rename to COMMON_INFO_ID__U92657 ^
+alter table TICKET_INCIDENT drop constraint FK_TICKET_INCIDENT_ON_COMMON_INFO ;
+drop index IDX_TICKET_INCIDENT_ON_COMMON_INFO ;

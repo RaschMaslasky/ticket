@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ticket.web.screens.issue">
+    <data>
+        <instance id="issueDc"
+                  class="com.company.ticket.entity.Issue"
+                  view="issue-with-person-ticket">
+            <loader/>
+            <collection id="personsDc" property="persons">
+                <collection id="ticketsDc" property="tickets">
+                </collection>
+            </collection>
+        </instance>
+        <instance id="patternDc" class="com.company.ticket.entity.Pattern" view="pattern-with-shapes">
+            <loader>
+                <query>
+                    <![CDATA[select e from ticket_Pattern e]]>
+                </query>
+            </loader>
+            <collection id="shapesDc" property="shapes"/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="issueDc">
+            <column width="250px">
+                <textField id="issueIdField" property="issueId" editable="false"/>
+                <dateField id="dateField" property="issueDate" editable="true"/>
+                <pickerField id="relativeDocField" property="relativeDocs" caption="Основание"/>
+            </column>
+            <column>
+                <hbox></hbox>
+                <lookupField id="issueStatusField" property="issueStatus" editable="false"/>
+                <textArea id="issueCommentField" property="issueComment" rows="1"/>
+            </column>
+        </form>
+        <groupBox id="personsBox" caption="msg://com.company.ticket.entity/Issue.persons" spacing="true"
+                  collapsable="true">
+            <table id="personsTable" dataContainer="personsDc" width="100%" height="200px" emptyStateMessage="No data added to the table">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="person.firstName"/>
+                    <column id="person.lastName"/>
+                    <column id="person.inn"/>
+                    <column id="person.job"/>
+                    <column id="person.department"/>
+                    <column id="person.organization"/>
+                </columns>
+                <buttonsPanel width="100%">
+                    <hbox width="AUTO" spacing="true">
+                        <button action="personsTable.create" caption="Добавить"/>
+                        <button action="personsTable.edit"/>
+                        <button action="personsTable.remove"/>
+                        <popupButton id="ticketGenerateMethod"
+                                     autoClose="false"
+                                     caption="Сгенерировать таллоны"
+                                     icon="COG">
+                            <popup>
+                                <vbox margin="true" spacing="true" width="AUTO">
+                                    <checkBox id="applyIssuedTicketsCheckBox" caption="Учитывать ранее выпущенные"/>
+                                    <checkBox id="issueTicketsCheckBox" caption="Перевыпускать просроченные"/>
+                                    <pickerField id="issuePatternField"
+                                                 dataContainer="issueDc"
+                                                 property="issuePattern"
+                                                 caption="Шаблон" width="100%"/>
+                                    <hbox spacing="true">
+                                        <button id="ticketGenerateOk" caption="ОК"/>
+                                        <button id="ticketGenerateCancel" caption="Отменить"/>
+                                        <button id="ticketGenerateButton" caption="Выполнить"/>
+                                    </hbox>
+                                </vbox>
+                            </popup>
+                        </popupButton>
+                    </hbox>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <groupBox id="ticketsBox" caption="msg://com.company.ticket.entity/LinePerson.tickets" spacing="true"
+                  collapsable="true">
+            <table id="ticketsTable" dataContainer="ticketsDc" width="100%" height="200px" emptyStateMessage="No data added to the table">
+                <actions>
+                    <action id="create" type="create" caption="Добавить"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="ticket.code"/>
+                    <column id="ticket.type"/>
+                    <column id="quantity"/>
+                    <column id="ticket.status"/>
+                    <column id="ticket.dataFrom"/>
+                    <column id="ticket.dataTo"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="ticketsTable.create"/>
+                    <button action="ticketsTable.edit"/>
+                    <button action="ticketsTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true" width="AUTO">
+            <button action="windowCommitAndClose" stylename="large"/>
+            <button action="windowClose" caption="Закрыть" stylename="large"/>
+            <button id="issueApproveButton" caption="Утвердить" stylename="large friendly"/>
+            <button id="issueCancelButton" caption="Отменить документ" stylename="large danger" visible="false"/>
+        </hbox>
+    </layout>
+</window>

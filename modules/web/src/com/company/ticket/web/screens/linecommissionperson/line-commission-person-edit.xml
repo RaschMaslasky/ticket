@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ticket.web.screens.linecommissionperson">
+    <data>
+        <instance id="lineCommissionPersonDc"
+                  class="com.company.ticket.entity.LineCommissionPerson"
+                  view="lineCommissionPerson-with-person">
+            <loader/>
+        </instance>
+        <collection id="personsDc" class="com.company.ticket.entity.Person" view="_minimal">
+            <loader id="personsLc">
+                <query>
+                    <![CDATA[select e from ticket_Person e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="lineCommissionPersonDc">
+            <column width="250px">
+                <lookupPickerField id="personField" optionsContainer="personsDc" property="person">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                    </actions>
+                </lookupPickerField>
+                <checkBox id="isChairmanField" property="isChairman"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

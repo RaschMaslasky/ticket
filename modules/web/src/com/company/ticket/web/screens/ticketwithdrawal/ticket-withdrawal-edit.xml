@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ticket.web.screens.ticketwithdrawal">
+    <data>
+        <instance id="ticketWithdrawalDc"
+                  class="com.company.ticket.entity.TicketWithdrawal"
+                  view="ticketWithdrawal-with-person">
+            <loader/>
+            <collection id="personsDc" property="persons"/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="ticketWithdrawalDc">
+            <column width="250px">
+                <dateField id="withdrawalDateField" property="withdrawalDate"/>
+                <lookupField id="withdrawalStatusField" property="withdrawalStatus"/>
+                <textField id="withdrawalIdField" property="withdrawalId"/>
+                <pickerField id="relativeDocField" property="relativeDoc">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+                <textField id="commentField" property="comment"/>
+            </column>
+        </form>
+        <groupBox id="personsBox" caption="msg://com.company.ticket.entity/TicketWithdrawal.persons">
+            <table id="personsTable" dataContainer="personsDc" width="100%" height="200px">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="person"/>
+                    <column id="tickets"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="personsTable.create"/>
+                    <button action="personsTable.edit"/>
+                    <button action="personsTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

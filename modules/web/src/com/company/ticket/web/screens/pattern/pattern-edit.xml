@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ticket.web.screens.pattern">
+    <data>
+        <instance id="patternDc"
+                  class="com.company.ticket.entity.Pattern"
+                  view="pattern-with-shapes">
+            <loader/>
+            <collection id="shapesDc" property="shapes"/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="patternDc">
+            <column width="250px">
+                <textField id="nameField" property="name"/>
+                <textArea id="commentField" property="comment" height="100%"/>
+            </column>
+            <column width="250px">
+                <dateField id="dateFromField" property="dateFrom"/>
+                <dateField id="dateToField" property="dateTo"/>
+            </column>
+            <column>
+                <checkBox id="isDefaultField" property="isDefault"/>
+            </column>
+        </form>
+        <groupBox id="shapesBox" caption="msg://com.company.ticket.entity/Pattern.context">
+            <table id="shapesTable" dataContainer="shapesDc" width="100%" height="200px">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="ticketType"/>
+                    <column id="quantity"/>
+                    <column id="comment"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="shapesTable.create"/>
+                    <button action="shapesTable.edit"/>
+                    <button action="shapesTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="damageDegreesTable"
+        messagesPack="com.company.ticket.web.screens.damagedegree">
+    <data readOnly="true">
+        <collection id="damageDegreesDc"
+                    class="com.company.ticket.entity.DamageDegree"
+                    view="damageDegree-view">
+            <loader id="damageDegreesDl">
+                <query>
+                    <![CDATA[select e from ticket_DamageDegree e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="damageDegreesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="damageDegreesTable"
+                dataLoader="damageDegreesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="damageDegreesTable"
+                    width="100%"
+                    dataContainer="damageDegreesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="code"/>
+                <column id="group"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="damageDegreesTable.create"/>
+                <button id="editBtn" action="damageDegreesTable.edit"/>
+                <button id="removeBtn" action="damageDegreesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

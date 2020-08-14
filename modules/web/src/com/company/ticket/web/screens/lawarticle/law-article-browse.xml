@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="lawArticlesTable"
+        messagesPack="com.company.ticket.web.screens.lawarticle">
+    <data readOnly="true">
+        <collection id="lawArticlesDc"
+                    class="com.company.ticket.entity.LawArticle"
+                    view="lawArticle-view">
+            <loader id="lawArticlesDl">
+                <query>
+                    <![CDATA[select e from ticket_LawArticle e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="lawArticlesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="lawArticlesTable"
+                dataLoader="lawArticlesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="lawArticlesTable"
+                    width="100%"
+                    dataContainer="lawArticlesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="article"/>
+                <column id="body"/>
+                <column id="comment"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="lawArticlesTable.create"/>
+                <button id="editBtn" action="lawArticlesTable.edit"/>
+                <button id="removeBtn" action="lawArticlesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

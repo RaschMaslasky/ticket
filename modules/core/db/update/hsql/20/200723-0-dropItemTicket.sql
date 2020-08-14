@@ -1,0 +1,1 @@
+alter table TICKET_ITEM_TICKET rename to TICKET_ITEM_TICKET__U75308 ;

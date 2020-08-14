@@ -1,0 +1,2 @@
+alter table TICKET_INCIDENT add constraint FK_TICKET_INCIDENT_ON_VIEW foreign key (VIEW_ID) references TICKET_INCIDENT_VIEW(ID);
+create index IDX_TICKET_INCIDENT_ON_VIEW on TICKET_INCIDENT (VIEW_ID);

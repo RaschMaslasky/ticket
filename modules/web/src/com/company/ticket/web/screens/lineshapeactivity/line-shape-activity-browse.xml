@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="lineShapeActivitiesTable"
+        messagesPack="com.company.ticket.web.screens.lineshapeactivity">
+    <data readOnly="true">
+        <collection id="lineShapeActivitiesDc"
+                    class="com.company.ticket.entity.LineShapeActivity"
+                    view="lineShapeActivity-with-activities">
+            <loader id="lineShapeActivitiesDl">
+                <query>
+                    <![CDATA[select e from ticket_LineShapeActivity e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="lineShapeActivitiesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="lineShapeActivitiesTable"
+                dataLoader="lineShapeActivitiesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="lineShapeActivitiesTable"
+                    width="100%"
+                    dataContainer="lineShapeActivitiesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="activity"/>
+                <column id="duration"/>
+                <column id="sequence"/>
+                <column id="comment"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="lineShapeActivitiesTable.create"/>
+                <button id="editBtn" action="lineShapeActivitiesTable.edit"/>
+                <button id="removeBtn" action="lineShapeActivitiesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

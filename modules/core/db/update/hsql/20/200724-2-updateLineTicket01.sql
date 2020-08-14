@@ -1,0 +1,1 @@
+create unique index IDX_TICKET_LINE_TICKET_UNQ on TICKET_LINE_TICKET (TICKET_ID) ;

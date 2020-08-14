@@ -1,0 +1,3 @@
+alter table TICKET_ACTIVITY alter column INCIDENT_ID rename to INCIDENT_ID__U56150 ^
+alter table TICKET_ACTIVITY drop constraint FK_TICKET_ACTIVITY_ON_INCIDENT ;
+drop index IDX_TICKET_ACTIVITY_ON_INCIDENT ;

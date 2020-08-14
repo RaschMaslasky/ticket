@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="incidentsTable"
+        messagesPack="com.company.ticket.web.screens.incident">
+    <data readOnly="true">
+        <collection id="incidentsDc"
+                    class="com.company.ticket.entity.Incident"
+                    view="incident-with-activities">
+            <loader id="incidentsDl">
+                <query>
+                    <![CDATA[select e from ticket_Incident e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="incidentsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="incidentsTable"
+                dataLoader="incidentsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="incidentsTable"
+                    width="100%"
+                    dataContainer="incidentsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="incidentDate"/>
+                <column id="incidentStatus"/>
+                <column id="type"/>
+                <column id="incidentId"/>
+                <column id="comment"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="incidentsTable.create"/>
+                <button id="editBtn" action="incidentsTable.edit"/>
+                <button id="removeBtn" action="incidentsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

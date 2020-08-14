@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ticket.web.screens.lineshapeactivity">
+    <data>
+        <instance id="lineShapeActivityDc"
+                  class="com.company.ticket.entity.LineShapeActivity"
+                  view="lineShapeActivity-with-activities">
+            <loader/>
+        </instance>
+        <collection id="activitiesDc" class="com.company.ticket.entity.Activity" view="_minimal">
+            <loader id="activitiesLc">
+                <query>
+                    <![CDATA[select e from ticket_Activity e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="lineShapeActivityDc">
+            <column width="250px">
+                <lookupPickerField id="activityField" optionsContainer="activitiesDc" property="activity">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                    </actions>
+                </lookupPickerField>
+                <textField id="durationField" property="duration"/>
+                <textField id="sequenceField" property="sequence"/>
+                <textArea id="commentField" property="comment" rows="5"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

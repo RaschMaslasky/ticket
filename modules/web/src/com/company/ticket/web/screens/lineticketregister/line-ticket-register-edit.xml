@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ticket.web.screens.lineticketregister">
+    <data>
+        <instance id="lineTicketRegisterDc"
+                  class="com.company.ticket.entity.LineTicketRegister"
+                  view="lineTicketRegister-with-person-ticket-issue-incident-titleDocument-activity">
+            <loader/>
+        </instance>
+        <collection id="personsDc" class="com.company.ticket.entity.Person" view="_minimal">
+            <loader id="personsLc">
+                <query>
+                    <![CDATA[select e from ticket_Person e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="ticketsDc" class="com.company.ticket.entity.Ticket" view="_minimal">
+            <loader id="ticketsLc">
+                <query>
+                    <![CDATA[select e from ticket_Ticket e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="issuesDc" class="com.company.ticket.entity.Issue" view="_minimal">
+            <loader id="issuesLc">
+                <query>
+                    <![CDATA[select e from ticket_Issue e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="incidentsDc" class="com.company.ticket.entity.Incident" view="_minimal">
+            <loader id="incidentsLc">
+                <query>
+                    <![CDATA[select e from ticket_Incident e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="titleDocumentsDc" class="com.company.ticket.entity.TitleDocument" view="_minimal">
+            <loader id="titleDocumentsLc">
+                <query>
+                    <![CDATA[select e from ticket_TitleDocs e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="activitiesDc" class="com.company.ticket.entity.Activity" view="_minimal">
+            <loader id="activitiesLc">
+                <query>
+                    <![CDATA[select e from ticket_Activity e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="lineTicketRegisterDc">
+            <column width="250px">
+                <dateField id="dateField" property="date"/>
+                <lookupPickerField id="personField" optionsContainer="personsDc" property="person">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                    </actions>
+                </lookupPickerField>
+                <lookupPickerField id="ticketField" optionsContainer="ticketsDc" property="ticket">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                    </actions>
+                </lookupPickerField>
+                <textField id="quantityField" property="quantity"/>
+                <lookupPickerField id="issueField" optionsContainer="issuesDc" property="issue">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                    </actions>
+                </lookupPickerField>
+                <lookupPickerField id="incidentField" optionsContainer="incidentsDc" property="incident">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                    </actions>
+                </lookupPickerField>
+                <lookupPickerField id="titleDocumentField" optionsContainer="titleDocumentsDc" property="titleDocument">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                    </actions>
+                </lookupPickerField>
+                <lookupPickerField id="activityField" optionsContainer="activitiesDc" property="activity">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                    </actions>
+                </lookupPickerField>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

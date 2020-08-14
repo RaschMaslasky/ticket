@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ticket.web.screens.linecommonactivity">
+    <data>
+        <instance id="lineCommonActivityDc"
+                  class="com.company.ticket.entity.LineCommonActivity"
+                  view="lineCommonActivity-with-activity">
+            <loader/>
+        </instance>
+        <collection id="activitiesDc" class="com.company.ticket.entity.Activity" view="_minimal">
+            <loader id="activitiesLc">
+                <query>
+                    <![CDATA[select e from ticket_Activity e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="reportersDc" class="com.company.ticket.entity.Person" view="_minimal">
+            <loader id="reportersLc">
+                <query>
+                    <![CDATA[select e from ticket_Person e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="responsiblesDc" class="com.company.ticket.entity.Person" view="_minimal">
+            <loader id="responsiblesLc">
+                <query>
+                    <![CDATA[select e from ticket_Person e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="lineCommonActivityDc">
+            <column width="250px">
+                <lookupPickerField id="activityField" optionsContainer="activitiesDc" property="activity">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </lookupPickerField>
+                <lookupPickerField id="reporterField" optionsContainer="reportersDc" property="reporter">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </lookupPickerField>
+                <lookupPickerField id="responsibleField" optionsContainer="responsiblesDc" property="responsible">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </lookupPickerField>
+                <textField id="sequenceField" property="sequence"/>
+                <lookupField id="activityStatusField" property="activityStatus"/>
+                <dateField id="dateFromField" property="dateFrom"/>
+                <dateField id="dateToField" property="dateTo"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

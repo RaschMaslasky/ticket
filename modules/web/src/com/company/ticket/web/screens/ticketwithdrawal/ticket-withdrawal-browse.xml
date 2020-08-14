@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="ticketWithdrawalsTable"
+        messagesPack="com.company.ticket.web.screens.ticketwithdrawal">
+    <data readOnly="true">
+        <collection id="ticketWithdrawalsDc"
+                    class="com.company.ticket.entity.TicketWithdrawal"
+                    view="ticketWithdrawal-with-person">
+            <loader id="ticketWithdrawalsDl">
+                <query>
+                    <![CDATA[select e from ticket_TicketWithdrawal e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="ticketWithdrawalsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="ticketWithdrawalsTable"
+                dataLoader="ticketWithdrawalsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="ticketWithdrawalsTable"
+                    width="100%"
+                    dataContainer="ticketWithdrawalsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="withdrawalDate"/>
+                <column id="withdrawalStatus"/>
+                <column id="withdrawalId"/>
+                <column id="relativeDoc"/>
+                <column id="comment"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="ticketWithdrawalsTable.create"/>
+                <button id="editBtn" action="ticketWithdrawalsTable.edit"/>
+                <button id="removeBtn" action="ticketWithdrawalsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

@@ -1,0 +1,1 @@
+drop table TICKET_INCIDENT_COMMON_INFO__U55712 if exists cascade ;

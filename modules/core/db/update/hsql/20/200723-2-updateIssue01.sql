@@ -1,0 +1,2 @@
+alter table TICKET_ISSUE add constraint FK_TICKET_ISSUE_ON_PERSON foreign key (PERSON_ID) references TICKET_PERSON(ID);
+create index IDX_TICKET_ISSUE_ON_PERSON on TICKET_ISSUE (PERSON_ID);

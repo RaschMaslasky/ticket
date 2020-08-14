@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="linePersonsTable"
+        messagesPack="com.company.ticket.web.screens.lineperson">
+    <data readOnly="true">
+        <collection id="linePersonsDc"
+                    class="com.company.ticket.entity.LinePerson"
+                    view="linePerson-with-ticket">
+            <loader id="linePersonsDl">
+                <query>
+                    <![CDATA[select e from ticket_LinePerson e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="linePersonsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="linePersonsTable"
+                dataLoader="linePersonsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="linePersonsTable"
+                    width="100%"
+                    dataContainer="linePersonsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="person"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="linePersonsTable.create"/>
+                <button id="editBtn" action="linePersonsTable.edit"/>
+                <button id="removeBtn" action="linePersonsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

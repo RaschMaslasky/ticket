@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="lineCommissionPersonsTable"
+        messagesPack="com.company.ticket.web.screens.linecommissionperson">
+    <data readOnly="true">
+        <collection id="lineCommissionPersonsDc"
+                    class="com.company.ticket.entity.LineCommissionPerson"
+                    view="lineCommissionPerson-with-person">
+            <loader id="lineCommissionPersonsDl">
+                <query>
+                    <![CDATA[select e from ticket_LineCommissionPerson e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="lineCommissionPersonsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="lineCommissionPersonsTable"
+                dataLoader="lineCommissionPersonsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="lineCommissionPersonsTable"
+                    width="100%"
+                    dataContainer="lineCommissionPersonsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="person"/>
+                <column id="isChairman"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="lineCommissionPersonsTable.create"/>
+                <button id="editBtn" action="lineCommissionPersonsTable.edit"/>
+                <button id="removeBtn" action="lineCommissionPersonsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ticket.web.screens.ticketissue">
+    <data>
+        <instance id="ticketIssueDc"
+                  class="com.company.ticket.entity.TicketIssue"
+                  view="ticketIssue-with-person">
+            <loader/>
+            <instance id="personsDc" property="persons"/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="ticketIssueDc">
+            <column width="250px">
+                <dateField id="issueDateField" property="issueDate"/>
+                <lookupField id="issueStatusField" property="issueStatus"/>
+                <textField id="issueIdField" property="issueId"/>
+                <pickerField id="personsField" property="persons">
+                    <actions>
+                        <action id="open_composition" type="picker_open_composition"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+                <pickerField id="relativeDocField" property="relativeDoc">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+                <textField id="commentField" property="comment"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

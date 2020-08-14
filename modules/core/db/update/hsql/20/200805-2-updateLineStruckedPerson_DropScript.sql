@@ -1,0 +1,1 @@
+alter table TICKET_LINE_STRUCKED_PERSON drop column DAMAGE_SEVERITY__U02005 cascade ;

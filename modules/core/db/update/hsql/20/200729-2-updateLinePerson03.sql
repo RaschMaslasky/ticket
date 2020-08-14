@@ -1,0 +1,4 @@
+-- update TICKET_LINE_PERSON set TICKET_ISSUE_ID = <default_value> where TICKET_ISSUE_ID is null ;
+-- alter table TICKET_LINE_PERSON alter column TICKET_ISSUE_ID set not null ;
+-- update TICKET_LINE_PERSON set TICKET_WITHDRAWAL_ID = <default_value> where TICKET_WITHDRAWAL_ID is null ;
+-- alter table TICKET_LINE_PERSON alter column TICKET_WITHDRAWAL_ID set not null ;

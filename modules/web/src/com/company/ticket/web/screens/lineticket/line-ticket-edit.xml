@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ticket.web.screens.lineticket">
+    <data>
+        <instance id="lineTicketDc"
+                  class="com.company.ticket.entity.LineTicket"
+                  view="lineTicket-with-ticket">
+            <loader/>
+        </instance>
+        <collection id="ticketsDc" class="com.company.ticket.entity.Ticket" view="ticket-view">
+            <loader id="ticketsLc">
+                <query>
+                    <![CDATA[select e from ticket_Ticket e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="lineTicketDc">
+            <column width="250px">
+                <lookupPickerField id="ticketField" optionsContainer="ticketsDc" property="ticket">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                    </actions>
+                </lookupPickerField>
+                <textField id="quantityField" property="quantity"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

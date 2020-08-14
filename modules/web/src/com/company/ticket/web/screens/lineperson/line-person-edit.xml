@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ticket.web.screens.lineperson">
+    <data>
+        <instance id="linePersonDc"
+                  class="com.company.ticket.entity.LinePerson"
+                  view="linePerson-with-ticket">
+            <loader/>
+            <collection id="ticketsDc" property="tickets"/>
+        </instance>
+        <collection id="personsDc" class="com.company.ticket.entity.Person" view="person-view">
+            <loader id="personsLc">
+                <query>
+                    <![CDATA[select e from ticket_Person e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="linePersonDc">
+            <column width="250px">
+                <lookupPickerField id="personField" optionsContainer="personsDc" property="person">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                    </actions>
+                </lookupPickerField>
+            </column>
+        </form>
+        <groupBox id="ticketsBox" caption="msg://com.company.ticket.entity/LinePerson.tickets">
+            <table id="ticketsTable" dataContainer="ticketsDc" width="100%" height="200px">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="ticket"/>
+                    <column id="quantity"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="ticketsTable.create"/>
+                    <button action="ticketsTable.edit"/>
+                    <button action="ticketsTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

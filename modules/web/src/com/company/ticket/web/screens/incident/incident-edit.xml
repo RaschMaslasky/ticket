@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.ticket.web.screens.incident">
+    <data>
+        <instance id="incidentDc"
+                  class="com.company.ticket.entity.Incident"
+                  view="incident-with-activities">
+            <collection id="activitiesCommonDc" property="activitiesCommon"/>
+            <collection id="involvedPersonsDc" property="involvedPersons"/>
+            <collection id="struckedPersonsDc" property="struckedPersons"/>
+            <collection id="docsDc" property="docs"/>
+            <collection id="violaterPersonsDc" property="violaterPersons"/>
+            <collection id="commissionPersonsDc" property="commissionPersons"/>
+            <collection id="activitiesDc" property="activities"/>
+            <loader/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="incidentDc">
+            <column width="250px">
+                <textField id="incidentIdField" property="incidentId" editable="false"/>
+                <dateField id="incidentDateField" property="incidentDate"/>
+                <lookupField id="incidentTypeField" property="type"/>
+            </column>
+            <column>
+                <hbox></hbox>
+                <lookupField id="incidentStatusField" property="incidentStatus" editable="false"/>
+                <textArea id="commentField" property="comment" rows="1"/>
+            </column>
+            <column>
+                <hbox></hbox>
+                <hbox></hbox>
+                <popupButton caption="Сформировать отчет" icon="font-icon:PRINT">
+                    <actions>
+                        <action id="report1" caption="Акт о нарушении"/>
+                        <action id="report2" caption="Докладная о совершенном (выявленном) факте нарушений"/>
+                        <action id="report3" caption="Акт об отказе работника от подписи предъявленному акту"/>
+                        <action id="report4" caption="Акт о не предъявление работником письменного объяснения"/>
+                    </actions>
+                </popupButton>
+            </column>
+        </form>
+        <groupBox id="activitesBox" caption="msg://com.company.ticket.entity/Incident.activities" spacing="true" collapsable="true">
+            <table id="activitesTable" dataContainer="activitiesDc" width="100%" height="200px">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="sequence"/>
+                    <column id="activity"/>
+                    <column id="activityStatus"/>
+                    <column id="dateFrom"/>
+                    <column id="dateTo"/>
+                    <column id="activity.activityType"/>
+                    <column id="activity.isReported"/>
+                    <column id="activity.isControlled"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="activitesTable.create"/>
+                    <button action="activitesTable.edit"/>
+                    <button action="activitesTable.remove"/>
+                    <popupButton id="ticketGenerateMethod"
+                                 autoClose="false"
+                                 caption="Сгенерировать мероприятия"
+                                 icon="COG">
+                        <popup>
+                            <vbox margin="true" spacing="true">
+                                <pickerField id="incidentActivityPatternField"
+                                             dataContainer="incidentDc"
+                                             property="activityPattern"
+                                             caption="Шаблон" width="100%"/>
+                            </vbox>
+                        </popup>
+                    </popupButton>
+                    <button icon="CARET_RIGHT" stylename="friendly"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <tabSheet id="mainTabSheet">
+            <tab id="commonTab" caption="Общая информация">
+                <buttonsPanel></buttonsPanel>
+                <form height="100%" id="commonInfoIncident">
+                    <column width="350px" childrenCaptionAlignment="LEFT">
+                        <pickerField id="initiatorField" property="initiator" dataContainer="incidentDc"/>
+                        <dateField id="initiatorDateField" property="initiatorDate" dataContainer="incidentDc"/>
+                        <textArea id="conditionsField" property="conditions" dataContainer="incidentDc"/>
+                    </column>
+                    <column width="350px" childrenCaptionAlignment="LEFT">
+                        <textField id="createdByField" property="createdBy" caption="Принявший" dataContainer="incidentDc"/>
+                        <dateField id="createTsField" property="createTs" caption="Дата приема" dataContainer="incidentDc"/>
+                        <textArea id="delayReasonField" property="delayReason" dataContainer="incidentDc"/>
+                    </column>
+                    <column width="350px" childrenCaptionAlignment="LEFT">
+                        <pickerField id="commonInfoViewField" property="view" dataContainer="incidentDc"/>
+                        <pickerField id="commonInfoReasonField" property="reason" dataContainer="incidentDc"/>
+                        <pickerField id="commonInfoField" property="outcome" dataContainer="incidentDc"/>
+                    </column>
+                </form>
+            </tab>
+            <tab id="struckedPersonsTab" caption="Список пострадавших">
+                <groupBox id="struckedPersonsBox" caption="" spacing="true" collapsable="true">
+                    <groupTable id="struckedPersonsTable" dataContainer="struckedPersonsDc" width="100%" height="200px">
+                        <actions>
+                            <action id="create" type="create"/>
+                            <action id="edit" type="edit"/>
+                            <action id="remove" type="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="person.firstName"/>
+                            <column id="person.lastName"/>
+                            <column id="person.inn"/>
+                            <column id="person.job"/>
+                            <column id="person.department"/>
+                            <column id="person.organization"/>
+                            <column id="damage"/>
+                            <column id="damageDegree"/>
+                            <column id="workPlace"/>
+                            <column id="comment"/>
+                        </columns>
+                        <buttonsPanel>
+                            <button action="struckedPersonsTable.create"/>
+                            <button action="struckedPersonsTable.edit"/>
+                            <button action="struckedPersonsTable.remove"/>
+                        </buttonsPanel>
+                    </groupTable>
+                </groupBox>
+            </tab>
+            <tab id="commissionPersonsTab" caption="Члены коммиссии">
+                <groupBox id="commissionPersonsBox" caption="" spacing="true" collapsable="true">
+                    <table id="commissionPersonsTable" dataContainer="commissionPersonsDc" width="100%" height="200px">
+                        <actions>
+                            <action id="create" type="create"/>
+                            <action id="edit" type="edit"/>
+                            <action id="remove" type="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="person.firstName"/>
+                            <column id="person.lastName"/>
+                            <column id="person.inn"/>
+                            <column id="person.job"/>
+                            <column id="person.department"/>
+                            <column id="person.organization"/>
+                            <column id="isChairman"/>
+                        </columns>
+                        <buttonsPanel>
+                            <button action="commissionPersonsTable.create"/>
+                            <button action="commissionPersonsTable.edit"/>
+                            <button action="commissionPersonsTable.remove"/>
+                            <button id="createCommision" caption="Сформировать коммиссию"/>
+                        </buttonsPanel>
+                    </table>
+                </groupBox>
+            </tab>
+            <tab id="involvedPersonsTab" caption="Лица, участвующие в расследовании">
+                <groupBox id="involvedPersonsBox" caption="" spacing="true" collapsable="true">
+                    <groupTable id="involvedPersonsTable" dataContainer="involvedPersonsDc" width="100%" height="200px">
+                        <actions>
+                            <action id="create" type="create"/>
+                            <action id="edit" type="edit"/>
+                            <action id="remove" type="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="person.firstName"/>
+                            <column id="person.lastName"/>
+                            <column id="person.inn"/>
+                            <column id="person.job"/>
+                            <column id="person.department"/>
+                            <column id="person.organization"/>
+                            <column id="involvedStatus"/>
+                        </columns>
+                        <buttonsPanel>
+                            <button action="involvedPersonsTable.create"/>
+                            <button action="involvedPersonsTable.edit"/>
+                            <button action="involvedPersonsTable.remove"/>
+                        </buttonsPanel>
+                    </groupTable>
+                </groupBox>
+            </tab>
+            <tab id="violatorPersonsTab" caption="Лица, допустившие нарушения">
+                <groupBox id="violatorPersonsBox" caption="" spacing="true" collapsable="true">
+                    <groupTable id="violatorPersonsTable" dataContainer="violaterPersonsDc" width="100%" height="200px">
+                        <actions>
+                            <action id="create" type="create"/>
+                            <action id="edit" type="edit"/>
+                            <action id="remove" type="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="person.firstName"/>
+                            <column id="person.lastName"/>
+                            <column id="person.inn"/>
+                            <column id="person.job"/>
+                            <column id="person.department"/>
+                            <column id="person.organization"/>
+                            <column id="gultyDegree"/>
+                            <column id="lawArticle"/>
+                            <column id="activity"/>
+                            <column id="activityStatus"/>
+                            <column id="activityStartDate"/>
+                            <column id="activityEndDate"/>
+                            <column id="comment"/>
+                        </columns>
+                        <buttonsPanel>
+                            <button action="violatorPersonsTable.create"/>
+                            <button action="violatorPersonsTable.edit"/>
+                            <button action="violatorPersonsTable.remove"/>
+                            <button id="createViolatorPersons" caption="Сгенерировать меры взыскания"/>
+                            <button icon="CARET_RIGHT" stylename="friendly"/>
+                        </buttonsPanel>
+                    </groupTable>
+                </groupBox>
+            </tab>
+            <tab id="activitiesTab" caption="Мероприятия, принятые к исполнению ">
+                <groupBox id="activitiesCommonBox" caption="" spacing="true" collapsable="true">
+                    <groupTable id="activitiesCommonTable" dataContainer="activitiesCommonDc" width="100%" height="200px">
+                        <actions>
+                            <action id="create" type="create"/>
+                            <action id="edit" type="edit"/>
+                            <action id="remove" type="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="sequence"/>
+                            <column id="activity"/>
+                            <column id="activityStatus"/>
+                            <column id="dateFrom"/>
+                            <column id="dateTo"/>
+                            <column id="responsible" caption="Вовлеченный в процесс"/>
+                            <column id="reporter"/>
+                        </columns>
+                        <buttonsPanel>
+                            <button action="activitiesCommonTable.create"/>
+                            <button action="activitiesCommonTable.edit"/>
+                            <button action="activitiesCommonTable.remove"/>
+                            <button icon="CARET_RIGHT" stylename="friendly"/>
+                        </buttonsPanel>
+                    </groupTable>
+                </groupBox>
+            </tab>
+            <tab id="docsTab" caption="Вложенные документы">
+                <groupBox id="docsBox" caption="" spacing="true" collapsable="true">
+                    <groupTable id="docsTable" dataContainer="docsDc" width="100%" height="200px">
+                        <actions>
+                            <action id="create" type="create"/>
+                            <action id="edit" type="edit"/>
+                            <action id="remove" type="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="name"/>
+                            <column id="docType"/>
+                            <column id="comment"/>
+                        </columns>
+                        <buttonsPanel>
+                            <button action="docsTable.create"/>
+                            <button action="docsTable.edit"/>
+                            <button action="docsTable.remove"/>
+                        </buttonsPanel>
+                    </groupTable>
+                </groupBox>
+            </tab>
+        </tabSheet>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose" stylename="large"/>
+            <button action="windowClose" stylename="large"/>
+            <button caption="Утвердить" stylename="large friendly"/>
+        </hbox>
+    </layout>
+</window>
